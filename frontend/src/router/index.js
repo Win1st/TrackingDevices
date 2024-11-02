@@ -5,28 +5,28 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/,',
+    path: '/',
     name: 'HomePage',
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/home,',
+    path: '/home',
     name: 'HomePage',
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/history,',
-    name: 'History',
+    path: '/history',
+    name: 'HistoryPage',
     component: () => import('../views/History.vue')
   },
   {
-    path: '/notification,',
-    name: 'Notification',
+    path: '/notification',
+    name: 'NotificationPage',
     component: () => import('../views/Notification.vue')
   },
   {
-    path: '/profile,',
-    name: 'Profile',
+    path: '/profile',
+    name: 'ProfilePage',
     component: () => import('../views/Profile.vue')
   },
   {

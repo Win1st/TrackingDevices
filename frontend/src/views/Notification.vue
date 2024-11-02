@@ -1,21 +1,15 @@
 <template>
   <div id="app">
-    <hi>
-      
-
-
-
-
-
-      
-    </hi>
+    <div style="height: 100vh;">
+      123
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 export default {
-  name: "Notification",
+  name: "NotificationPage",
   data() {
     return {
       previousRoutes: [],

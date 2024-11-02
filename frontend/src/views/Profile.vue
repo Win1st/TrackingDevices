@@ -1,21 +1,29 @@
 <template>
-  <div id="app">
-    <hi>
+  <div id="prof">
+    <div style="height: 100vh;">
       
 
+    <div :class="center" class="navbar navbar-light sticky-top border-bottom bg-dark" style="height: 15vh;">
+      <img :src="require('./assets/image.png')" style="max-height:8vh; width: auto; border-radius: 80%;">
+    </div>
+
+    <div class="d-flex">
+      <div class="fw-bold text-light fs-4 ms-5 px-3 py-1 " :class="[center, { 'bg-secondary': hoverHOME }]" @mouseover="hoverBooking = true" @mouseleave="hoverBooking = false"  style="border: 3px solid white; border-radius: 10px;">
+        HOME
+      </div>
+      <div>
+      </div>
+    </div>
 
 
-
-
-      
-    </hi>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 export default {
-  name: "Profile",
+  name: "ProfilePage",
   data() {
     return {
       previousRoutes: [],

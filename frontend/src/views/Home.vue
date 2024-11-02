@@ -1,14 +1,8 @@
 <template>
   <div id="app">
-    <hi>
-      
-
-
-
-
-
-      
-    </hi>
+    <div style="height: 100vh;">
+      123
+    </div>
   </div>
 </template>
 
