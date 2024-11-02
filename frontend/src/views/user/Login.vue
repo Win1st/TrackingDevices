@@ -8,7 +8,7 @@
         class="container-fluid bg-light px-5 py-4 border border-dark"
         style="width: 40vw; border-radius: 10px"
       >
-        <h1 class="rounded-3">เข้าสู่ระบบ</h1>
+        <h1 class="rounded-3">Sign In</h1>
         <br />
         <form name="signup">
           <div class="row my-2">
@@ -59,14 +59,15 @@
           </p>
           <div class="form-group d-flex justify-content-center">
             <div class="btn btn-dark btn-md mt-4 mx-2" @click="submit()">
-              Sign In
+              Login
             </div>
           </div>
 
           <div class="form-group justify-content-center text-center">
-            <label style="font-size: 17px">Create an account</label>
+            <label class="pt-3" style="font-size: 17px">Create an account</label>
             <router-link to="/user/signup">
-              <a class="btn btn-link" value="Sign Up Now">Sign Up Now</a>
+              <div class="form-group d-flex justify-content-center"></div>
+              <a class="btn btn-link py-0" value="Sign Up Now">Sign Up</a>
             </router-link>
           </div>
         </form>

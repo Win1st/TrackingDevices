@@ -8,7 +8,7 @@
         class="container-fluid bg-light px-5 py-4 border border-dark"
         style="width: 40vw; border-radius: 10px"
       >
-        <h1 class="rounded-3">สมัครบัญชี</h1>
+        <h1 class="rounded-3">Sign Up</h1>
         <br />
         <form name="signup">
           <div class="row my-2">
@@ -99,7 +99,7 @@
               </template>
             </div>
             <div class="form-group col-6">
-              <label class="form-label" for="phone">Phone*</label>
+              <label class="form-label" for="phone">Phone Number*</label>
               <input
                 class="form-control"
                 :class="{ 'border-danger': $v.phone.$error }"
@@ -189,14 +189,15 @@
 
           <div class="form-group d-flex justify-content-center">
             <div class="btn btn-dark btn-md mt-4 mx-2" @click="submit()">
-              Sign Up
+              Create
             </div>
           </div>
 
           <div class="form-group justify-content-center text-center">
-            <label style="font-size: 17px">Already Have an account?</label>
+            <label class="pt-3" style="font-size: 17px">Already have an account?</label>
             <router-link to="/user/login">
-              <a class="btn btn-link" value="Sign In">Sign In</a>
+              <div class="form-group d-flex justify-content-center"></div>
+              <a class="btn btn-link py-0" value="Sign In">Sign In</a>
             </router-link>
           </div>
         </form>

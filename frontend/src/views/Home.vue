@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <hi>win</hi>
+    <hi>
+      
+
+
+
+
+
+      
+    </hi>
   </div>
 </template>
 
