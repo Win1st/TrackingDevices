@@ -1,9 +1,38 @@
 <template>
   <div id="app">
-    <div class="container-fluid d-flex flex-column justify-content-center align-items-center" style="min-height: 90vh" >
-      <div class="container-fluid bg-light px-5 py-4 border border-dark" style="width: 40vw; border-radius: 50px">
-        ...................................
-      </div>
-    </div>
+    <hi>
+      
+
+
+
+
+
+      
+    </hi>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+export default {
+  name: "Profile",
+  data() {
+    return {
+      previousRoutes: [],
+      search: "",
+      center: {
+        "d-flex": true,
+        "justify-content-center": true,
+        "align-items-center": true,
+      },
+    };
+  },
+  mounted() {},
+  methods: {},
+  watch: {
+    $route(to, from) {
+      this.previousRoutes.push(from); // เมื่อมีการเปลี่ยนเส้นทางใหม่ ให้เก็บเส้นทางก่อนหน้าลงในอาร์เรย์
+    },
+  },
+};
+</script>

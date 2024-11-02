@@ -17,12 +17,12 @@ const routes = [
   {
     path: '/history,',
     name: 'History',
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/History.vue')
   },
   {
     path: '/notification,',
     name: 'Notification',
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/Notification.vue')
   },
   {
     path: '/profile,',

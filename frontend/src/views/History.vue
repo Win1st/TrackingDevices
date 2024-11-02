@@ -15,7 +15,7 @@
 <script>
 // @ is an alias to /src
 export default {
-  name: "HomePage",
+  name: "History",
   data() {
     return {
       previousRoutes: [],
