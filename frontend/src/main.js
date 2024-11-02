@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 
 Vue.use(VueCookies, {
-  expireTimes: 60 * 60 // กำหนดเวลาหมดอายุให้เป็น 1 ชั่วโมง (60 นาที * 60 วินาที)
+  expireTimes: 60 * 60 // กำหนดเวลาหมดอายุให้เป็น 1 ชั่วโมง (60 วินาที * 60 วินาที)
 })
 
 new Vue({

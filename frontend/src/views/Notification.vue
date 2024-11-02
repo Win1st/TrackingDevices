@@ -6,7 +6,7 @@
 
                   <div class="d-flex">
                     <!-- logo -->
-                    <router-link to="/" :class="center" style="text-decoration: none;" >
+                    <router-link to="/" style="text-decoration: none;">
                       <div :class="center" class=" rounded-pill" >
                         <img :src="require('./assets/image.png')" style="max-height:8vh; width: auto; border-radius: 80%;">
                         <div class="text-light fw-bold fs-4">TRACKING SYSTEM</div>
@@ -39,7 +39,7 @@
                               <div class="bi bi-person text-light" style="font-size: 2rem;"></div>
                               <div class='fw-bold fs-4 mx-2 text-white' :class="center">{{this.$cookies.get('account').username}}</div>
                             </router-link>
-                            <button type="button" class="btn btn-danger btn-sm mx-2 fw-bold fs-4" @click.stop="logout()">Logout</button>
+              
                         </div>
                     </template>
 
@@ -68,25 +68,6 @@
 
 
 <script>
-export default {
-  data() {
-    return {
-      center:{
-          'd-flex': true,
-          'justify-content-center':true,
-          'align-items-center':true
-      },
-    };
-  },
-  methods: {
-    logout () {
-      this.$cookies.keys().forEach(cookie => this.$cookies.remove(cookie))
-      alert("Logout");
-      this.$router.push({path: '/user/login'})
-    },
-
-  },
-};
 
         
 </script>
