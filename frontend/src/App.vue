@@ -6,6 +6,38 @@
 
                   <div class="d-flex">
                     <!-- logo -->
+                    <router-link to="/">
+                      <div :class="center" style="border: 3px solid gray; border-radius: 50%;">
+                          <img :src="require('./assets/logo.png')" style="max-height:7.5vh; width: auto; border-radius: 50%;">
+                      </div>
+                    </router-link>
+                    <template v-if="this.$cookies.isKey('account')">
+                        <router-link to="/booking" :class="center" style="text-decoration: none;">
+                          <div class="text-light ml-3 px-2" :class="[center, { 'bg-secondary': hoverBooking }]" @mouseover="hoverBooking = true" @mouseleave="hoverBooking = false"  style="border: 3px solid white; border-radius: 10px;">
+                              Booking
+                          </div>
+                        </router-link>
+                        <router-link to="/checkin" :class="center" style="text-decoration: none;">
+                          <div class="text-light ml-3 px-2" :class="[center, { 'bg-secondary': hoverCheckIN }]" @mouseover="hoverCheckIN = true" @mouseleave="hoverCheckIN = false"  style="border: 3px solid white; border-radius: 10px;">
+                              CheckIN
+                          </div>
+                        </router-link>
+                        <router-link to="/payments" :class="center" style="text-decoration: none;">
+                          <div class="text-light ml-3 px-2" :class="[center, { 'bg-secondary': hoverPayment }]" @mouseover="hoverPayment = true" @mouseleave="hoverPayment = false"  style="border: 3px solid white; border-radius: 10px;">
+                              Payment
+                          </div>
+                        </router-link>
+                        <router-link to="/VIP" :class="center" style="text-decoration: none;">
+                          <div class="text-light ml-3 px-2" :class="[center, { 'bg-secondary': hoverVIP }]" @mouseover="hoverVIP = true" @mouseleave="hoverVIP = false"  style="border: 3px solid white; border-radius: 10px;">
+                              VIP member
+                          </div>
+                        </router-link>
+                        <router-link to="/register" :class="center" style="text-decoration: none;">
+                          <div class="text-light ml-3 px-2" :class="[center, { 'bg-secondary': hoverRegister }]" @mouseover="hoverRegister = true" @mouseleave="hoverRegister = false"  style="border: 3px solid white; border-radius: 10px;">
+                              VIP register
+                          </div>
+                        </router-link>
+                    </template>
                     
                   </div>
                     <template v-if="this.$cookies.isKey('account')">
