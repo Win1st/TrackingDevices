@@ -20,9 +20,9 @@ app.use(cookieSession({
 
 // routers
 const indexRouter = require('./routes/index')
-
+const userRouter = require('./routes/user')
 app.use(indexRouter.router)
-
+app.use(userRouter.router)
 
 
 app.listen(3000, () => {

@@ -6,7 +6,7 @@
     >
       <div
         class="container-fluid bg-light px-5 py-4 border border-dark"
-        style="width: 40vw; border-radius: 10px"
+        style="width: 40vw; border-radius: 50px"
       >
         <h1 class="rounded-3">Sign In</h1>
         <br />

@@ -6,7 +6,7 @@
     >
       <div
         class="container-fluid bg-light px-5 py-4 border border-dark"
-        style="width: 40vw; border-radius: 10px"
+        style="width: 40vw; border-radius: 50px"
       >
         <h1 class="rounded-3">Sign Up</h1>
         <br />
@@ -293,7 +293,7 @@ export default {
           phone: this.phone,
         };
         axios
-          .post("http://localhost/user/signup", data)
+          .post("http://localhost:3000/user/signup", data)
           .then(() => {
             this.$router.push({ path: "/user/login" });
             alert("Sign up Success");
