@@ -10,7 +10,8 @@
                   </div>
                     <template v-if="this.$cookies.isKey('account')">
                         <div :class="center" >
-                            <router-link to="/user/profile" class="d-flex" :class="center" style="text-decoration: none;">
+                            <router-link to="
+                            " class="d-flex" :class="center" style="text-decoration: none;">
                               <div class="bi bi-person text-light mx-3" style="font-size: 2rem;"></div>
                               <div class=' fw-bold fs-8 mx-1 text-white' :class="center">{{this.$cookies.get('account').username}}</div>
                             </router-link>
@@ -18,12 +19,26 @@
                         </div>
                     </template>
                     <template v-else>
-                      <router-link to="/user/login" style="text-decoration: none;">
-                        <div :class="center">
-                            <div class="bi bi-person text-light mx-3" style="font-size: 2rem;"></div>
-                            <div class=' fw-bold fs-8 mx-1 text-white' :class="center">เข้าสู่ระบบ/ลงทะเบียน</div>
+                  
+                        <div :class="center" class="bg-success">
+
+                          <router-link to="/user/login" style="text-decoration: none;">
+                              <div class="bi bi-person text-light mx-2" style="font-size: 2rem;"></div>
+                          </router-link>
+
+                          <router-link to="/user/login" style="text-decoration: none;">
+                            <div class=' fw-bold fs-8 text-white mx-2' :class="center">Sign In</div>
+                          </router-link>
+
+                          <router-link to="/user/login" style="text-decoration: none;">
+                            <div class=' fw-bold fs-8 text-white' :class="center">/</div>
+                          </router-link>
+                          
+                          <router-link to="/user/signup" style="text-decoration: none;">
+                            <div class=' fw-bold fs-8 text-white mx-2' :class="center">Sign Up</div>
+                          </router-link>
                         </div>
-                      </router-link>
+                    
                     </template>
             </div>
     </nav>
