@@ -64,7 +64,9 @@
           </div>
 
           <div class="form-group justify-content-center text-center">
-            <label class="pt-3" style="font-size: 17px">Create an account</label>
+            <label class="pt-3" style="font-size: 17px"
+              >Create an account</label
+            >
             <router-link to="/user/signup">
               <div class="form-group d-flex justify-content-center"></div>
               <a class="btn btn-link py-0" value="Sign Up Now">Sign Up</a>
