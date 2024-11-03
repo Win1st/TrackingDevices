@@ -9,7 +9,7 @@
         style="width: 40vw; border-radius: 50px"
       >
         <h1 class="rounded-3">Sign In</h1>
-        <br />
+        <br/>
         <form name="signup">
           <div class="row my-2">
             <div class="form-group col-12">
@@ -64,9 +64,7 @@
           </div>
 
           <div class="form-group justify-content-center text-center">
-            <label class="pt-3" style="font-size: 17px"
-              >Create an account</label
-            >
+            <label class="pt-3" style="font-size: 17px">Create an account</label>
             <router-link to="/user/signup">
               <div class="form-group d-flex justify-content-center"></div>
               <a class="btn btn-link py-0" value="Sign Up Now">Sign Up</a>

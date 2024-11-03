@@ -1,3 +1,16 @@
+<style>
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+
+}
+.red {
+  background-color: red;
+}
+.red:hover {
+  background-color: black;
+}
+</style>
 <template>
   <div id="app">
     <div class="bg-light my-3"></div>
