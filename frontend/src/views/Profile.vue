@@ -76,9 +76,7 @@
                         <select
                           v-model="slavename">
                           <option disabled value="">Please select one</option>
-                          <option><before>A</before></option>
-                          <option>B</option>
-                          <option>C</option>
+                          <option v-for="user in users" :key="user.username"><before>{{ user.username }}</before></option>
                         </select>
                         <input
                           class="form-control"
@@ -118,16 +116,6 @@
                         <div class="d-flex flex-row my-2">
                           <div class="flex-fill form-group">
                             <!-- 2 -->
-                            <select
-                              class="form-control"
-                              type="text"
-                              id="username"
-                              name="username"
-                              required
-                              placeholder="My tracking device’s name"
-                              maxlength="50"
-                              v-model="username"
-                            />
                           </div>
                           <button
                             class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
@@ -361,6 +349,7 @@ export default {
   data() {
     return {
       previousRoutes: [],
+      users: [],
       search: "",
       center: {
         "d-flex": true,
@@ -369,8 +358,25 @@ export default {
       },
     };
   },
-  mounted() {},
-  methods: {},
+  mounted() {
+    this.getUsers();
+  },
+  methods: {
+    getUsers() {
+      axios
+        .get("http://localhost:3000", {
+          params: {
+            search: this.search,
+          },
+        })
+        .then((response) => {
+          this.users = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
   watch: {
     $route(to, from) {
       this.previousRoutes.push(from); // เมื่อมีการเปลี่ยนเส้นทางใหม่ ให้เก็บเส้นทางก่อนหน้าลงในอาร์เรย์
