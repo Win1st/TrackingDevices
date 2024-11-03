@@ -76,7 +76,7 @@
                         <select
                           v-model="slavename">
                           <option disabled value="">Please select one</option>
-                          <option>A</option>
+                          <option><before>A</before></option>
                           <option>B</option>
                           <option>C</option>
                         </select>
