@@ -85,7 +85,7 @@
                                 border-radius: 25px;
                               "
                             >
-                              <router-link
+                              <!-- <router-link
                               to="/profile"
                               :class="center"
                               style="text-decoration: none"
@@ -105,7 +105,25 @@
                               >
                                 Message
                               </div>
-                            </router-link>
+                            </router-link> -->
+                              <div
+                                class="ms-auto mt-4 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3"
+                                :class="[
+                                  center,
+                                  { 'bg-secondary': hoverPayment },
+                                ]"
+                                @mouseover="hoverPayment = true"
+                                @mouseleave="hoverPayment = false"
+                                style="
+                                  border: 3px solid white;
+                                  border-radius: 5px;
+                                "
+                                @click="selectSlave(slaves)"
+                              >
+                                Message
+                              </div>
+
+
                             </div>
                           </div>
                         </div>
@@ -376,6 +394,11 @@ export default {
           });
       }
     },
+
+    selectSlave(slaves) {
+      this.$router.push({ path: "/slave0", query: { slave: slaves } });
+    },
+    
 
     // Setting() {
     //   this.$v.slavename2.$touch();

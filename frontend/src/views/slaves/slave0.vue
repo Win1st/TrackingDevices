@@ -271,6 +271,7 @@
         password: "",
         showpassword: false,
         slaves: [],
+        slave: this.$route.query.slave,
         slavename1: "",
         slavename2: "",
         slavename: "",
