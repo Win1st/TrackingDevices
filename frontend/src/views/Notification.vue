@@ -180,7 +180,7 @@
                           />
                           <div class="mt-3 ms-1 d-flex flex-column">
                             <div class="my-0 py-0 ms-2 text-dark fw-bold fs-6">
-                              {{ slavename[0].slavename }}
+                              {{ selectSlave.slavename }}
                             </div>
                             <div class="my-0 py-0 ms-2 text-dark fs-6">
                               Online
@@ -289,6 +289,7 @@ export default {
       password: "",
       showpassword: false,
       slaves: [],
+      selectSlave: "",
       slavename1: "",
       slavename2: "",
       slavename: "",
@@ -395,8 +396,8 @@ export default {
       }
     },
 
-    selectSlave(slaves) {
-      this.$router.push({ path: "/slave0", query: { slave: slaves } });
+    UpdateSelectSlave(slave) {
+      this.selectSlave = slave
     },
     
 
