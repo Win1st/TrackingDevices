@@ -41,7 +41,7 @@
                 class="d-flex flex-column bg-white px-0 py-1 border border-secondary border-3"
                 style="width: 100%; height: 70vh; border-radius: 25px"
               >
-                <div v-for="slaves in slavename" :key="slaves.slavename">
+                <div v-for="(slaves, index) in slavename" :key="index">
                   <div :class="center">
                     <div class="bg-highlight" style="height: auto; width: 90%">
                       <div class="d-flex">
