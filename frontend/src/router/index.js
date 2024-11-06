@@ -39,6 +39,26 @@ const routes = [
     name: 'Signup',
     component: () => import('../views/user/Signup.vue')
   },
+  {
+    path: '/slave0',
+    name: 'SlaveMessage1',
+    component: () => import('../views/slaves/slave0.vue')
+  },
+  {
+    path: '/slave1',
+    name: 'SlaveMessage2',
+    component: () => import('../views/slaves/slave1.vue')
+  },
+  {
+    path: '/slave2',
+    name: 'SlaveMessage3',
+    component: () => import('../views/slaves/slave2.vue')
+  },
+  {
+    path: '/slave3',
+    name: 'SlaveMessage4',
+    component: () => import('../views/slaves/slave3.vue')
+  },
   
 ]
 

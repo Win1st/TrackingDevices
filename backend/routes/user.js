@@ -69,7 +69,7 @@ router.post('/user/signup', async (req, res, next) => {
 })
 
 
-//SignIN
+//LogIn
 router.post('/user/login', async (req, res, next) => {
     const loginSchema = Joi.object({
         username: Joi.string().required(),
@@ -105,6 +105,45 @@ router.post('/user/login', async (req, res, next) => {
     } catch (error) {
         conn.rollback()
         res.status(403).json(error.toString())
+    } finally {
+        conn.release()
+    }
+})
+
+//SignUP
+router.post('/user/signup', async (req, res, next) => {
+    const signupSchema = Joi.object({
+        username: Joi.string().required().min(5).max(20).external(usernameValidator),
+        password: Joi.string().required().custom(passwordValidator),
+        confirmPassword: Joi.ref('password'),
+        firstname: Joi.string().max(100).required(),
+        lastname: Joi.string().max(100).required(),
+        email: Joi.string().email().required(),
+        phone: Joi.string().required().pattern(/0[0-9]{9}/),
+    })
+    try {
+        await signupSchema.validateAsync(req.body, { abortEarly: false })
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+    const username = req.body.username
+    const password = await bcrypt.hash(req.body.password, 5)
+    const firstname = req.body.firstname
+    const lastname = req.body.lastname
+    const email = req.body.email
+    const phone = req.body.phone
+    try {
+        await conn.query(
+            'INSERT INTO accounts(username, password, firstname, lastname, email, phone, date) VALUES (?, ?, ?, ?, ?, ?, current_timestamp())',
+            [username, password, firstname, lastname, email, phone]
+        )
+        conn.commit()
+        res.status(201).send()
+    } catch (err) {
+        conn.rollback()
+        res.status(400).json(err.toString());
     } finally {
         conn.release()
     }

@@ -6,7 +6,7 @@
         <!-- left-blank -->
         <div class="flex-fill"></div>
 
-        <div class="flex-fill" style="height: 100vh; width: 90%">
+        <div class="flex-fill" style="height: 120vh; width: 90%">
           <!-- top side -->
           <div
             class="d-flex flex-row bg-white"
@@ -23,7 +23,7 @@
                   {{ this.$cookies.get("account").username }}
                 </div>
               </div>
-              <div class="bd-highlight">
+              <div class="bd-highlight mt-1 ">
                 <div class="fs-5 text-dark" :class="center">
                   {{ this.$cookies.get("account").email }}
                 </div>
@@ -34,7 +34,7 @@
 
           <!-- left side -->
           <div class="d-flex">
-            <div class="flex-fill bg-white" style="height: 70vh; width: 90%">
+            <div class="flex-fill bg-white" style="height: auto; width: 90%">
               <div class="fw-bold fs-5 text-dark">
                 <form name="signup">
                   <!-- 1 -->
@@ -58,7 +58,7 @@
                         />
                         <button
                           class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                          style="height: 100%; width: 20%"
+                          style="height: 100%; width: auto"
                         >
                           Connect
                         </button>
@@ -68,31 +68,25 @@
                   <!-- 3 -->
                   <div class="row my-2">
                     <div class="form-group col-12">
-                      <label class="form-label" for="password"
-                        >Connected Devices</label
-                      >
+                      <label class="form-label">Connected Devices</label>
                       <!-- 4 -->
                       <div class="d-flex flex-row">
                         <select
-                          v-model="slavename">
-                          <option disabled value="">Please select one</option>
-                          <option v-for="user in users" :key="user.username"><before>{{ user.username }}</before></option>
-                        </select>
-                        <input
-                          class="form-control"
-                          :type="showpassword ? 'text' : 'password'"
-                          id="password"
-                          required
-                          placeholder="My device's name"
-                          maxlength="20"
-                          v-model="password"
-                        />
-                        <button
-                          class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                          style="height: 100%; width: 20%"
-                        >
-                          Select
-                        </button>
+                                  request
+                                  class="btn border-dark bg-secondary py-0 text-white fw-bold fs-4 border-3"
+                                  style="height: 100%; width: 100%"
+                                  v-model="slavename2"
+                                >
+                                  <option disabled selected value>
+                                    Select Device
+                                  </option>
+                                  <option
+                                    v-for="slave in users"
+                                    :key="slave.slavename2"
+                                  >
+                                    <before>{{ slave.slavename }}</before>
+                                  </option>
+                                </select>
                       </div>
                     </div>
                   </div>
@@ -102,7 +96,7 @@
                 <div class="mt-4 fw-bold fs-5 text-dark" :class="center">
                   <div
                     class="bg-white px-0 py-1 border border-secondary border-3"
-                    style="width: 80%; height: auto; border-radius: 8px"
+                    style="width: 80%; height: auto; border-radius: 25px"
                   >
                     <div
                       class="mx-0 py-2 text-dark fw-bold fs-4"
@@ -116,10 +110,30 @@
                         <div class="d-flex flex-row my-2">
                           <div class="flex-fill form-group">
                             <!-- 2 -->
+                            <div class="d-flex flex-column">
+                              <input
+                                class="form-control"
+                                type="text"
+                                id="mastername"
+                                name="mastername"
+                                required
+                                placeholder="My tracking device’s name"
+                                maxlength="20"
+                                v-model="mastername"
+                              />
+                            </div>
+                            <template v-if="$v.mastername.$error">
+                              <p
+                                class="text-danger m-0 fs-5 p-0"
+                                v-if="!$v.mastername.required"
+                              >
+                                Required This
+                              </p>
+                            </template>
                           </div>
                           <button
                             class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                            style="height: 100%; width: 25%"
+                            style="height: 100%; width: auto"
                           >
                             Connect
                           </button>
@@ -127,38 +141,66 @@
                         <!-- 3 -->
                         <div class="d-flex flex-row my-2">
                           <div class="flex-fill form-group">
-                            <!-- 4 -->
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="password"
-                              required
-                              placeholder="Connect a new device"
-                              maxlength="50"
-                              v-model="password"
-                            />
+                            <div class="d-flex flex-column">
+                              <!-- 4 -->
+                              <input
+                                class="form-control"
+                                type="text"
+                                id="devicename"
+                                name="devicename"
+                                required
+                                placeholder="Connect a new device"
+                                maxlength="20"
+                                v-model="slavename1"
+                              />
+                            </div>
+                            <template v-if="$v.slavename1.$error">
+                              <p
+                                class="text-danger m-0 fs-5 p-0"
+                                v-if="!$v.slavename1.required"
+                              >
+                                Required This
+                              </p>
+                            </template>
                           </div>
                           <button
                             class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                            style="height: 100%; width: 25%"
+                            style="height: 100%; width: auto"
                           >
                             Connect
                           </button>
                         </div>
                         <!-- 5 -->
-                        <div class="mb-2 row my-2">
-                          <div class="form-group">
-                            <!-- 6 -->
-                            <input
-                              class="form-control"
-                              :type="showpassword ? 'text' : 'password'"
-                              id="password"
-                              required
-                              placeholder="Password"
-                              maxlength="50"
-                              v-model="password"
-                            />
+                        <div class="d-flex flex-row my-2">
+                          <div class="flex-fill form-group">
+                            <div class="d-flex flex-column">
+                              <!-- 6 -->
+                              <input
+                                class="form-control"
+                                :type="showpassword ? 'text' : 'password'"
+                                id="password"
+                                required
+                                placeholder="Password"
+                                maxlength="20"
+                                v-model="password"
+                              />
+                            </div>
+                            <template v-if="$v.password.$error">
+                              <p
+                                class="text-danger m-0 fs-5 p-0"
+                                v-if="!$v.password.required"
+                              >
+                                Required This
+                              </p>
+                            </template>
                           </div>
+                          <input
+                            class="form-check-input my-0 nx-0"
+                            type="checkbox"
+                            style="height: 37px; width: 37px"
+                            id="check"
+                            v-model="showpassword"
+                          />
                         </div>
                         <div
                           class="mt-3 fw-bold fs-5 text-dark"
@@ -167,6 +209,7 @@
                           <button
                             class="mb-3 btn border-dark py-0 text-dark fw-bold fs-4 border-3"
                             style="height: auto; width: 50%"
+                            @click="Adding()"
                           >
                             CONFIRM
                           </button>
@@ -182,7 +225,7 @@
                   <div class="fw-bold fs-4 text-dark">My Email Address</div>
                 </div>
                 <div class="bd-highlight mt-3">
-                  <div class="fs-5 text-dark">
+                  <div class="fs-5 fw-bold text-dark">
                     <img
                       :src="require('@/assets/image3.png')"
                       style="
@@ -194,21 +237,23 @@
                     {{ this.$cookies.get("account").email }}
                   </div>
                   <div
-                    class="bg-highlight"
+                    class="bg-highlight "
                     style="height: 1vh; width: 100%"
                   ></div>
-                </div>
+                
                 <button
-                  class="btn border-dark bg-dark py-0 text-white fw-bold fs-6 border-3"
-                  style="height: 100%; width: 25%"
+                  class="btn border-dark bg-dark py-0 text-white fw-bold fs-6 border-5"
+                  style="height: auto; width: auto"
                 >
                   Add Email Address
                 </button>
               </div>
+
+              </div>
             </div>
 
             <!-- middle-blank -->
-            <div class="flex-fill bg-white" style="height: 70vh; width: 5%">
+            <div class="flex-fill bg-white" style="height: 80vh; width: 10%">
               <div class="d-flex">
                 <div class="flex-fill bg-highlight"></div>
               </div>
@@ -216,14 +261,14 @@
 
             <!-- right side -->
             <div
-              class="d-flex flex-column bd-highlight mb-3"
+              class="d-flex flex-column bd-highlight mb-3 mt-5"
               style="width: 100%; height: 50%"
             >
               <div class="bg-highlight" style="height: auto; width: 100%"></div>
               <div
                 class="d-flex flex-column bg-white px-0 py-1 border border-secondary border-3"
                 :class="center"
-                style="width: 100%; height: auto; border-radius: 8px"
+                style="width: 100%; height: auto; border-radius: 25px"
               >
                 <div class="bg-highlight" style="height: auto; width: 90%">
                   <div class="d-flex">
@@ -247,43 +292,59 @@
                               >
 
                               <!-- 2 -->
-                              <div class="d-flex flex-row">
-                                <input
-                                  class="form-control"
-                                  type="text"
-                                  id="username"
-                                  name="username"
-                                  required
-                                  placeholder="My device’s name"
-                                  maxlength="20"
-                                  v-model="username"
-                                />
-                                <button
-                                  class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                                  style="height: auto; width: 20%"
+                              <div class="d-flex flex-column">
+                                <select
+                                  request
+                                  class="btn border-dark bg-secondary py-0 text-white fw-bold fs-4 border-3"
+                                  style="height: 100%; width: 100%"
+                                  v-model="slavename2"
                                 >
-                                  Select
-                                </button>
+                                  <option disabled selected value>
+                                    Select Device
+                                  </option>
+                                  <option
+                                    v-for="slave in users"
+                                    :key="slave.slavename2"
+                                  >
+                                    <before>{{ slave.slavename }}</before>
+                                  </option>
+                                </select>
+                                <template v-if="$v.slavename2.$error">
+                                  <p
+                                    class="text-danger m-0 p-0"
+                                    v-if="!$v.slavename2.required"
+                                  >
+                                    Required This
+                                  </p>
+                                </template>
                               </div>
                             </div>
                           </div>
                           <!-- 3 -->
                           <div class="row my-2">
                             <div class="form-group col-12">
-                              <label class="form-label" for="password"
+                              <label class="form-label" for="password" request
                                 >Tracking Distance</label
                               >
                               <!-- 4 -->
-                              <div class="d-flex flex-row">
+                              <div class="d-flex flex-column">
                                 <input
                                   class="form-control"
-                                  :type="showpassword ? 'text' : 'password'"
-                                  id="password"
+                                  type="number"
+                                  id="threshold"
                                   required
                                   placeholder="Notify when out of range (meters)"
                                   maxlength="20"
-                                  v-model="password"
+                                  v-model="threshold"
                                 />
+                                <template v-if="$v.threshold.$error">
+                                  <p
+                                    class="text-danger m-0 p-0"
+                                    v-if="!$v.threshold.required"
+                                  >
+                                    Required This
+                                  </p>
+                                </template>
                               </div>
                             </div>
                           </div>
@@ -292,26 +353,49 @@
                               <label class="form-label" for="username"
                                 >Notification Message and Alert Sound</label
                               >
-
-                              <!-- 2 -->
-                              <div class="d-flex flex-row">
-                                <input
-                                  class="form-control"
-                                  type="text"
-                                  id="username"
-                                  name="username"
-                                  required
-                                  placeholder="Notification & Alert format"
-                                  maxlength="20"
-                                  v-model="username"
-                                />
-                                <button
-                                  class="btn border-dark bg-dark py-0 text-white fw-bold fs-4 border-3"
-                                  style="height: auto; width: 20%"
-                                >
-                                  Select
-                                </button>
-                              </div>
+                              <form confirm="return checkForm();">
+                                <!-- 2 -->
+                                <div class="d-flex flex-column">
+                                  <select
+                                    id="notification"
+                                    class="btn border-dark bg-secondary py-0 text-white fw-bold fs-4 border-3"
+                                    :class="{
+                                      'border-danger': $v.notify.$error,
+                                    }"
+                                    style="height: 100%; width: 100%"
+                                    v-model="notify"
+                                  >
+                                    <option disabled selected value>
+                                      Select Option
+                                    </option>
+                                    <option
+                                      value="Notification Message and Alert Sound"
+                                    >
+                                      Turn on Notification Message and Alert
+                                      Sound
+                                    </option>
+                                    <option value="Notification Message">
+                                      Turn on Notification Message
+                                    </option>
+                                    <option value="Alert Sound">
+                                      Turn on Alert Sound
+                                    </option>
+                                    <option
+                                      value="Turn off Notification and Alert"
+                                    >
+                                      Turn off
+                                    </option>
+                                  </select>
+                                  <template v-if="$v.notify.$error">
+                                    <p
+                                      class="text-danger m-0 p-0"
+                                      v-if="!$v.notify.required"
+                                    >
+                                      Required This
+                                    </p>
+                                  </template>
+                                </div>
+                              </form>
                             </div>
                           </div>
                           <div
@@ -320,7 +404,8 @@
                           >
                             <button
                               class="mb-3 btn border-dark py-0 text-dark fw-bold fs-4 border-3"
-                              style="height: auto; width: 40%"
+                              style="height: auto; width: 35.56%"
+                              @click="Setting()"
                             >
                               CONFIRM
                             </button>
@@ -344,12 +429,25 @@
 
 <script>
 // @ is an alias to /src
+import axios from "axios";
+import { required } from "vuelidate/lib/validators";
+
 export default {
   name: "ProfilePage",
   data() {
     return {
       previousRoutes: [],
       users: [],
+      password: "",
+      showpassword: false,
+      slaves: [],
+      slavename1: "",
+      slavename2: "",
+      slavename: "",
+      threshold: "",
+      mastername: "",
+      master: "",
+      notify: "",
       search: "",
       center: {
         "d-flex": true,
@@ -358,13 +456,33 @@ export default {
       },
     };
   },
+  validations: {
+    mastername: {
+      required: required,
+    },
+    slavename1: {
+      required: required,
+    },
+    slavename2: {
+      required: required,
+    },
+    threshold: {
+      required: required,
+    },
+    notify: {
+      required: required,
+    },
+    password: {
+      required: required,
+    },
+  },
   mounted() {
     this.getUsers();
   },
   methods: {
     getUsers() {
       axios
-        .get("http://localhost:3000", {
+        .get("http://localhost:3000/slave", {
           params: {
             search: this.search,
           },
@@ -375,6 +493,59 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    
+    Adding() {
+      this.$v.mastername.$touch();
+      this.$v.slavename1.$touch();
+      this.$v.password.$touch();
+      if (
+        !this.$v.mastername.$invalid &&
+        !this.$v.slavename1.$invalid &&
+        !this.$v.password.$invalid
+      ) {
+        const data = {
+          mastername: this.mastername,
+          slavename: this.slavename1,
+          username: this.$cookies.get("account").username,
+          password: this.password,
+        };
+        axios
+          .post("http://localhost:3000/slaveAdding", data)
+          .then(() => {
+            alert("Success");
+          })
+          .catch((err) => {
+            alert(err.response.data.details.message);
+          });
+      }
+    },
+
+    Setting() {
+      this.$v.slavename2.$touch();
+      this.$v.threshold.$touch();
+      this.$v.notify.$touch();
+      if (
+        !this.$v.slavename2.$invalid &&
+        !this.$v.threshold.$invalid &&
+        !this.$v.notify.$invalid
+      ) {
+        const data = {
+          slavename: this.slavename2,
+          threshold: this.threshold,
+          notify: this.notify,
+        };
+        axios
+          .post("http://localhost:3000/slaveSetting", data)
+          .then(() => {
+            //this.$router.push({ path: "/profile" });
+            alert("Success");
+          })
+          .catch((err) => {
+            alert(err.response.data.details.message);
+          });
+      }
     },
   },
   watch: {
