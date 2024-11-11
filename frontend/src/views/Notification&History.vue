@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="bg-light" style="height: 3vh; width: 100%"></div>
+    <div class="bg-highlight" style="height: 3vh; width: 100%"></div>
 
-    <div style="height: 90vh">
+    <div style="height: 200vh">
       <div class="d-flex">
         <div class="flex-fill"></div>
 
@@ -16,14 +16,14 @@
               style="max-height: 100%; max-width: 100%; border-radius: 80%"
             />
 
-            <div class="ms-3 mt-3" style="height: auto; width: auto">
-              <div class="my-0 bd-highlight" style="height: 3vh; width: 100%">
+            <div class="px-0 py-0 ms-3 mt-3" style="height: auto">
+              <div class="my-0 bd-highlight" style="height: 3vh">
                 <div class="fw-bold fs-4 text-dark">
                   {{ this.$cookies.get("account").username }}
                 </div>
               </div>
-              <div class="mt-1 bd-highlight">
-                <div class="fs-5 text-dark" :class="center">
+              <div class="px-0 py-0 ms-auto mt-1 bd-highlight">
+                <div class="ms-auto mx-0 fs-5 text-dark">
                   {{ this.$cookies.get("account").email }}
                 </div>
               </div>
@@ -39,91 +39,109 @@
               <div class="bg-highlight" style="height: auto; width: 100%"></div>
               <div
                 class="d-flex flex-column bg-white px-0 py-1 border border-secondary border-3"
-                style="width: 100%; height: 70vh; border-radius: 25px"
+                style="width: 100%; height: auto; border-radius: 25px"
               >
                 <div v-for="(slaves, index) in slavename" :key="index">
                   <div :class="center">
                     <div class="bg-highlight" style="height: auto; width: 90%">
                       <div class="d-flex">
                         <div
-                          class="mx-0 px-0 py-0 my-0 flex-fill bg-highlight"
-                          style="height: auto; width: 90%"
+                          class="mx-0 px-0 py-0 my-0 mt-2 flex-fill bg-highlight"
+                          style="height: auto; width: auto"
                         >
                           <div
-                            request
-                            class="mb-3 d-flex mx-0 px-0 mt-3 bg-highlight"
+                            class="mb-3 mx-0 px-0 mt-0 bg-highlight d-flex align-items-center"
                             style="height: 100%; width: 100%"
                           >
                             <img
-                              :src="require('@/assets/image2.png')"
+                              :src="require('@/assets/image4.png')"
                               style="
                                 max-height: 12vh;
                                 width: auto;
                                 border-radius: 80%;
                               "
+                              @click="History(slaves)"
                             />
-                            <div class="mt-2 ms-1 d-flex flex-column">
-                              <div
-                                class="my-0 py-0 ms-2 text-dark fw-bold fs-6"
-                              >
-                                {{ slaves.slavename }}
-                              </div>
-                              <div class="my-0 py-0 ms-2 text-dark fs-6">
-                                Online
-                              </div>
-                              <div
-                                class="my-0 py-0 fw-bold ms-2 text-dark fs-6"
-                              >
-                                DISTANCES = xxxm.
-                              </div>
-                            </div>
                             <div
-                              class="ms-auto"
-                              style="
-                                width: auto;
-                                height: 6vh;
-                                border-radius: 25px;
-                              "
+                              class="d-flex flex-column"
+                              style="max-height: auto; width: 100%"
                             >
-                              <!-- <router-link
-                              to="/profile"
-                              :class="center"
-                              style="text-decoration: none"
-                            >
-                              <div
-                                class="ms-auto mt-4 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3"
-                                :class="[
-                                  center,
-                                  { 'bg-secondary': hoverPayment },
-                                ]"
-                                @mouseover="hoverPayment = true"
-                                @mouseleave="hoverPayment = false"
-                                style="
-                                  border: 3px solid white;
-                                  border-radius: 5px;
-                                "
-                              >
-                                Message
+                              <div class="mt-0 ms-4 d-flex flex-column">
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  Tracker's name: {{ slaves.mastername }}
+                                </div>
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  Device's name: {{ slaves.slavename }}
+                                </div>
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  Status: Online
+                                </div>
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  Notify: {{ slaves.notify }}
+                                </div>
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  Distance Alerting: {{ slaves.threshold }} m.
+                                </div>
+                                <div
+                                  class="my-0 py-0 ms-2 mb-0 pb-0 text-dark fs-5"
+                                >
+                                  Distance = {{ slaves.slavedistance }} m.
+                                </div>
                               </div>
-                            </router-link> -->
                               <div
-                                class="ms-auto mt-4 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3"
-                                :class="[
-                                  center,
-                                  { 'bg-secondary': hoverPayment },
-                                ]"
-                                @mouseover="hoverPayment = true"
-                                @mouseleave="hoverPayment = false"
-                                style="
-                                  border: 3px solid white;
-                                  border-radius: 5px;
-                                "
-                                @click="selectSlave(slaves)"
+                                class="d-flex flex-row px-0 py-0 mx-0 my-0 ms-auto mt-auto"
                               >
-                                Message
+                                <div
+                                  class="bg-highlight mt-auto ms-auto ms-auto mt-auto"
+                                  :class="[{ 'bg-secondary': hoverPayment }]"
+                                  @mouseover="hoverPayment = true"
+                                  @mouseleave="hoverPayment = false"
+                                  style="
+                                    border: 3px solid white;
+                                    border-radius: 5px;
+                                    height: auto;
+                                    width: 100%;
+                                  "
+                                  @click="Message(slaves)"
+                                >
+                                  <div
+                                    class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
+                                    style="
+                                      border: 3px solid white;
+                                      border-radius: 5px;
+                                      height: auto;
+                                      width: auto;
+                                    "
+                                  >
+                                    Message
+                                  </div>
+                                </div>
+                                <div
+                                  class="bg-highlight mt-auto ms-auto ms-auto mt-auto"
+                                  :class="[{ 'bg-secondary': hoverPayment }]"
+                                  @mouseover="hoverPayment = true"
+                                  @mouseleave="hoverPayment = false"
+                                  style="
+                                    border: 3px solid white;
+                                    border-radius: 5px;
+                                    height: auto;
+                                    width: 100%;
+                                  "
+                                  @click="History(slaves)"
+                                >
+                                  <div
+                                    class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
+                                    style="
+                                      border: 3px solid white;
+                                      border-radius: 5px;
+                                      height: auto;
+                                      width: auto;
+                                    "
+                                  >
+                                    History
+                                  </div>
+                                </div>
                               </div>
-
-
                             </div>
                           </div>
                         </div>
@@ -131,7 +149,7 @@
                     </div>
                   </div>
                   <hr
-                    class="mt-1"
+                    class="mb-0"
                     width="100%;"
                     size="5"
                     color="secondary"
@@ -171,7 +189,7 @@
                           style="height: 100%; width: 100%"
                         >
                           <img
-                            :src="require('@/assets/image2.png')"
+                            :src="require('@/assets/image4.png')"
                             style="
                               max-height: 12vh;
                               width: auto;
@@ -181,6 +199,7 @@
                           <div class="mt-3 ms-1 d-flex flex-column">
                             <div class="my-0 py-0 ms-2 text-dark fw-bold fs-6">
                               {{ selectSlave.slavename }}
+                              <!-- {{ Message }} -->
                             </div>
                             <div class="my-0 py-0 ms-2 text-dark fs-6">
                               Online
@@ -200,7 +219,7 @@
                               style="text-decoration: none"
                             >
                               <div
-                                class="ms-auto mt-4 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3"
+                                class="ms-auto mt-3 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3 px-3 btn bg-dark border-dark text-white fw-bold fs-4 border-3"
                                 :class="[
                                   center,
                                   { 'bg-secondary': hoverPayment },
@@ -236,20 +255,10 @@
                     class="mx-3 text-dark fw-bold fs-5 border-3"
                     style="width: 100%; height: auto; border-radius: 25px"
                   >
-                    Your device is now out of range.
+                    {{message}}
                   </div>
                 </div>
-                <div
-                  class="me-auto mx-3 mt-2 bg-white border border-dark border-3"
-                  style="width: auto; height: auto; border-radius: 25px"
-                >
-                  <div
-                    class="mx-3 text-dark fw-bold fs-5 border-3"
-                    style="width: 100%; height: auto; border-radius: 25px"
-                  >
-                    Your device is now in range.
-                  </div>
-                </div>
+                
                 <div class="mt-auto" :class="center">
                   <div
                     class="mx-3 mt-2 mb-2 bg-white border border-dark border-3"
@@ -261,7 +270,7 @@
                       style="width: auto; height: auto; border-radius: 0px"
                       :class="center"
                     >
-                      DISTANCES = xxxm.
+                     {{ selectSlave.slavedistance }} meters
                     </div>
                   </div>
                 </div>
@@ -284,6 +293,7 @@ export default {
   name: "ProfilePage",
   data() {
     return {
+      distance: "350",
       previousRoutes: [],
       users: [],
       password: "",
@@ -298,13 +308,16 @@ export default {
       master: "",
       notify: "",
       search: "",
+      message: "Please select slave",
       center: {
         "d-flex": true,
         "justify-content-center": true,
         "align-items-center": true,
       },
+      zeros: "px-0 py-0 mx-0 my-0",
     };
   },
+
   validations: {
     mastername: {
       required: required,
@@ -325,9 +338,11 @@ export default {
       required: required,
     },
   },
+
   mounted() {
     this.getslavename();
   },
+
   methods: {
     getslavename() {
       axios
@@ -344,6 +359,40 @@ export default {
         });
     },
 
+    Message(slave) {
+      this.selectSlave = slave;
+      console.log("ab")
+      const data = {
+          slavename: slave.slavename,
+        };
+        axios
+          .post("http://localhost:3000/slaveDistance", data)
+          .then((res) => {
+            this.message = res.data
+            
+          })
+          .catch(() => {
+            alert("ERROR");
+          });
+    },
+
+    History(slave) {
+      this.selectSlave = slave;
+      console.log("ab")
+      const data = {
+          slavename: slave.slavename,
+        };
+        axios
+          .post("http://localhost:3000/slaveDistance", data)
+          .then((res) => {
+            this.message = res.data
+            
+          })
+          .catch(() => {
+            alert("a");
+          });
+    },
+    
     Adding() {
       this.$v.mastername.$touch();
       this.$v.slavename1.$touch();
@@ -369,63 +418,6 @@ export default {
           });
       }
     },
-
-    Message() {
-      this.$v.slavename2.$touch();
-      this.$v.threshold.$touch();
-      this.$v.notify.$touch();
-      if (
-        !this.$v.slavename2.$invalid &&
-        !this.$v.threshold.$invalid &&
-        !this.$v.notify.$invalid
-      ) {
-        const data = {
-          slavename: this.slavename2,
-          threshold: this.threshold,
-          notify: this.notify,
-        };
-        axios
-          .post("http://localhost:3000/slaveSetting", data)
-          .then(() => {
-            //this.$router.push({ path: "/profile" });
-            alert("Success");
-          })
-          .catch((err) => {
-            alert(err.response.data.details.message);
-          });
-      }
-    },
-
-    UpdateSelectSlave(slave) {
-      this.selectSlave = slave
-    },
-    
-
-    // Setting() {
-    //   this.$v.slavename2.$touch();
-    //   this.$v.threshold.$touch();
-    //   this.$v.notify.$touch();
-    //   if (
-    //     !this.$v.slavename2.$invalid &&
-    //     !this.$v.threshold.$invalid &&
-    //     !this.$v.notify.$invalid
-    //   ) {
-    //     const data = {
-    //       slavename: this.slavename2,
-    //       threshold: this.threshold,
-    //       notify: this.notify,
-    //     };
-    //     axios
-    //       .post("http://localhost:3000/slaveSetting", data)
-    //       .then(() => {
-    //         //this.$router.push({ path: "/profile" });
-    //         alert("Success");
-    //       })
-    //       .catch((err) => {
-    //         alert(err.response.data.details.message);
-    //       });
-    //   }
-    // },
 
     Setting() {
       this.$v.$touch();
@@ -455,10 +447,12 @@ export default {
       }
     },
   },
+
   watch: {
     $route(to, from) {
       this.previousRoutes.push(from); // เมื่อมีการเปลี่ยนเส้นทางใหม่ ให้เก็บเส้นทางก่อนหน้าลงในอาร์เรย์
     },
   },
+  
 };
 </script>

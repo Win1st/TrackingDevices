@@ -6,7 +6,41 @@ const upload = require("../multer");
 
 router = express.Router();
 
-//Slave1
+//SlaveDistance
+router.post('/slaveDistance', async (req, res, next) => {
+
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+    const slavename = req.body.slavename
+
+    
+    try {
+        const [slaves] = await conn.query(
+            'SELECT * FROM slave WHERE slavename = ?', 
+            [slavename]
+        )
+        slave = slaves[0]
+        const distance = slave.slavedistance
+        const threshold = slave.threshold
+        var message = "error"
+        if(distance >= threshold){
+            message = "Your device is now out of range."
+        }
+        else{
+            message = "Your device is now in range."
+        }
+        return res.json(message);
+
+    } catch (err) {
+        conn.rollback()
+        res.status(400).json(err.toString());
+    } finally {
+        conn.release()
+    }
+
+})
+
+//SlaveAdding
 router.post('/slaveAdding', async (req, res, next) => {
 
     const conn = await pool.getConnection()
@@ -43,7 +77,7 @@ router.post('/slaveAdding', async (req, res, next) => {
 
 })
 
-//Slave2
+//SlaveSetting
 router.post('/slaveSetting', async (req, res, next) => {
 
     const conn = await pool.getConnection()
@@ -66,6 +100,7 @@ router.post('/slaveSetting', async (req, res, next) => {
         conn.release()
     }
 })
+
 
 //LogIn
 router.post('/user/login', async (req, res, next) => {

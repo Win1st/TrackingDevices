@@ -6,7 +6,7 @@
         <!-- left-blank -->
         <div class="flex-fill"></div>
 
-        <div class="flex-fill" style="height: 120vh; width: 90%">
+        <div class="flex-fill" style="height: 150vh; width: 90%">
           <!-- top side -->
           <div
             class="d-flex flex-row bg-white"
@@ -18,13 +18,13 @@
             />
 
             <div class="ms-3 mt-3" style="height: auto; width: auto">
-              <div class="my-0 bd-highlight" style="height: 3vh; width: 100%">
+              <div class="my-0 bd-highlight" style="height: 3vh;">
                 <div class="fw-bold fs-4 text-dark">
                   {{ this.$cookies.get("account").username }}
                 </div>
               </div>
-              <div class="bd-highlight mt-1 ">
-                <div class="fs-5 text-dark" :class="center">
+              <div class="px-0 py-0 ms-auto mt-1 bd-highlight">
+                <div class="ms-auto mx-0 fs-5 text-dark">
                   {{ this.$cookies.get("account").email }}
                 </div>
               </div>
@@ -118,7 +118,7 @@
                                 name="mastername"
                                 required
                                 placeholder="My tracking device’s name"
-                                maxlength="20"
+                                maxlength="10"
                                 v-model="mastername"
                               />
                             </div>
@@ -150,7 +150,7 @@
                                 name="devicename"
                                 required
                                 placeholder="Connect a new device"
-                                maxlength="20"
+                                maxlength="10"
                                 v-model="slavename1"
                               />
                             </div>
@@ -430,7 +430,10 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-import { required } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+} from "vuelidate/lib/validators";
 
 export default {
   name: "ProfilePage",
@@ -459,9 +462,11 @@ export default {
   validations: {
     mastername: {
       required: required,
+      maxLength: maxLength(10),
     },
     slavename1: {
       required: required,
+      maxLength: maxLength(10),
     },
     slavename2: {
       required: required,

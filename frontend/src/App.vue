@@ -34,7 +34,7 @@
                 HOME
               </div>
             </router-link>
-            <router-link
+            <!-- <router-link
               to="/history"
               :class="center"
               style="text-decoration: none"
@@ -48,9 +48,9 @@
               >
                 HISTORY
               </div>
-            </router-link>
+            </router-link> -->
             <router-link
-              to="/notification"
+              to="/specification"
               :class="center"
               style="text-decoration: none"
             >
@@ -61,7 +61,7 @@
                 @mouseleave="hoverPayment = false"
                 style="border: 3px solid white; border-radius: 10px"
               >
-                NOTIFICATION
+                SPECIFICATION
               </div>
             </router-link>
           </template>
