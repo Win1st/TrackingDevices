@@ -25,4 +25,23 @@ router.get("/slave", async function (req, res, next) {
     }
   });
 
+  router.get("/userSlave", async function (req, res, next) {
+    try {
+      const search = req.query.search || ''
+      let sql = 'SELECT * FROM connect JOIN slave ON connect.slave_id = slave.id'
+      
+      let cond = []
+
+      if (search.length > 0) {
+        sql += ' WHERE connect.username = ?'
+        cond = [search]
+      }
+      const [rows, fields] = await pool.query(sql, cond);
+      
+      return res.json(rows);
+    } catch (err) {
+      return res.status(500).json(err)
+    }
+  });
+
 exports.router = router;

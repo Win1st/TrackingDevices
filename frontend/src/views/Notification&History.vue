@@ -340,15 +340,15 @@ export default {
   },
 
   mounted() {
-    this.getslavename();
+    this.getSlave();
   },
 
   methods: {
-    getslavename() {
+    getSlave() {
       axios
-        .get("http://localhost:3000/slave", {
+        .get("http://localhost:3000/userSlave", {
           params: {
-            search: this.search,
+            search: this.$cookies.get("account").username,
           },
         })
         .then((response) => {

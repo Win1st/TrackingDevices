@@ -482,14 +482,14 @@ export default {
     },
   },
   mounted() {
-    this.getUsers();
+    this.getSlave();
   },
   methods: {
-    getUsers() {
+    getSlave() {
       axios
-        .get("http://localhost:3000/slave", {
+        .get("http://localhost:3000/userSlave", {
           params: {
-            search: this.search,
+            search: this.$cookies.get("account").username,
           },
         })
         .then((response) => {
