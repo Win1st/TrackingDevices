@@ -62,10 +62,22 @@ router.post('/slaveAdding', async (req, res, next) => {
             throw new Error('Incorrect username or password')
         }
 
+        const [slaves] = await conn.query(
+            'SELECT * FROM slave WHERE slavename = ?', 
+            [slavename]
+        )
+
+        const slave = slaves[0]
+        if (!slave) {
+            await conn.query(
+            'INSERT INTO slave(slavename, mastername) VALUES (?, ?)',
+            [slavename, mastername]  
+        )}
+        
         await conn.query(
             'INSERT INTO slave(slavename, mastername) VALUES (?, ?)',
-            [slavename, mastername]
-        )   
+            [slavename, mastername]),     
+
         conn.commit()
         res.status(201).send()
     } catch (err) {
@@ -100,7 +112,6 @@ router.post('/slaveSetting', async (req, res, next) => {
         conn.release()
     }
 })
-
 
 //LogIn
 router.post('/user/login', async (req, res, next) => {
