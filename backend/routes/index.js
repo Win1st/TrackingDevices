@@ -28,7 +28,7 @@ router.get("/slave", async function (req, res, next) {
   router.get("/userSlave", async function (req, res, next) {
     try {
       const search = req.query.search || ''
-      let sql = 'SELECT * FROM connect JOIN slave ON connect.slave_id = slave.id'
+      let sql = 'SELECT * FROM connect JOIN slave ON connect.slavename = slave.slavename'
       
       let cond = []
 
