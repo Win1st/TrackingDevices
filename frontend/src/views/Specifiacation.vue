@@ -60,7 +60,7 @@
                                 width: auto;
                                 border-radius: 80%;
                               "
-                              @click="History(slaves)"
+                              @click="History(slaves) & Message(slaves)"
                             />
                             <div
                               class="d-flex flex-column"
@@ -85,7 +85,7 @@
                                 <div
                                   class="my-0 py-0 ms-2 mb-0 pb-0 text-dark fs-5"
                                 >
-                                  Distance = {{ slaves.slavedistance }} m.
+                                  Far away = {{ slaves.slavedistance }} m.
                                 </div>
                               </div>
                               <div
@@ -102,7 +102,7 @@
                                     height: auto;
                                     width: 100%;
                                   "
-                                  @click="Message(slaves)"
+                                  @click="History(slaves) & Message(slaves)"
                                 >
                                   <div
                                     class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
@@ -127,7 +127,7 @@
                                     height: auto;
                                     width: 100%;
                                   "
-                                  @click="History(slaves)"
+                                  @click="History(slaves) & Message(slaves)"
                                 >
                                   <div
                                     class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
@@ -247,18 +247,29 @@
                   color="secondary"
                   noshade
                 />
+              <div class="d-flex flex-row" 
+              style="width: 100%; height: auto;">
                 <div
-                  class="me-auto mx-3 mt-2 bg-white border border-dark border-3"
+                  class="me-auto ms-3 mt-2 bg-white border border-dark border-3"
                   style="width: auto; height: auto; border-radius: 25px"
                 >
                   <div
                     class="mx-3 text-dark fw-bold fs-5 border-3"
-                    style="width: 100%; height: auto; border-radius: 25px"
+                    style="width: auto; height: auto; border-radius: 25px"
                   >
-                    {{message}}
+                    {{ message }}
                   </div>
                 </div>
-                
+              
+
+                <div class="ms-auto me-3 text-dark fs-5"
+                    :class="center">
+                  {{ formattedDate }}
+                </div>
+              </div>
+             
+              
+
                 <div class="mt-auto" :class="center">
                   <div
                     class="mx-3 mt-2 mb-2 bg-white border border-dark border-3"
@@ -270,7 +281,7 @@
                       style="width: auto; height: auto; border-radius: 0px"
                       :class="center"
                     >
-                     {{ selectSlave.slavedistance }} meters
+                      {{ selectSlave.slavedistance }} meters
                     </div>
                   </div>
                 </div>
@@ -288,6 +299,7 @@
 // @ is an alias to /src
 import axios from "axios";
 import { required } from "vuelidate/lib/validators";
+import moment from "moment";
 
 export default {
   name: "ProfilePage",
@@ -315,6 +327,7 @@ export default {
         "align-items-center": true,
       },
       zeros: "px-0 py-0 mx-0 my-0",
+      date: new Date(),
     };
   },
 
@@ -361,38 +374,37 @@ export default {
 
     Message(slave) {
       this.selectSlave = slave;
-      console.log("ab")
+      console.log("ab");
       const data = {
-          slavename: slave.slavename,
-        };
-        axios
-          .post("http://localhost:3000/slaveDistance", data)
-          .then((res) => {
-            this.message = res.data
-            
-          })
-          .catch(() => {
-            alert("ERROR");
-          });
+        slavename: slave.slavename,
+      };
+      axios
+        .post("http://localhost:3000/slaveDistance", data)
+        .then((res) => {
+          this.message = res.data;
+          alert(res.data);
+        })
+        .catch(() => {
+          alert("ERROR");
+        });
     },
 
     History(slave) {
       this.selectSlave = slave;
-      console.log("ab")
+      console.log("ab");
       const data = {
-          slavename: slave.slavename,
-        };
-        axios
-          .post("http://localhost:3000/slaveDistance", data)
-          .then((res) => {
-            this.message = res.data
-            
-          })
-          .catch(() => {
-            alert("a");
-          });
+        slavename: slave.slavename,
+      };
+      axios
+        .post("http://localhost:3000/slaveDistance", data)
+        .then((res) => {
+          this.message = res.data;
+        })
+        .catch(() => {
+          alert("ERROR");
+        });
     },
-    
+
     Adding() {
       this.$v.mastername.$touch();
       this.$v.slavename1.$touch();
@@ -448,11 +460,16 @@ export default {
     },
   },
 
+  computed: {
+    formattedDate() {
+      return moment(this.date).format("YYYY-MM-DD HH:mm:ss");
+    },
+  },
+
   watch: {
     $route(to, from) {
       this.previousRoutes.push(from); // เมื่อมีการเปลี่ยนเส้นทางใหม่ ให้เก็บเส้นทางก่อนหน้าลงในอาร์เรย์
     },
   },
-  
 };
 </script>

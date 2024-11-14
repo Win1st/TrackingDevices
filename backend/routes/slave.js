@@ -75,8 +75,8 @@ router.post('/slaveAdding', async (req, res, next) => {
         )}
         
         await conn.query(
-            'INSERT INTO slave(slavename, mastername) VALUES (?, ?)',
-            [slavename, mastername]),     
+            'INSERT INTO connect(username, slavename) VALUES (?, ?)',
+            [username, slavename]),     
 
         conn.commit()
         res.status(201).send()

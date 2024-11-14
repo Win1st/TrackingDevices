@@ -28,7 +28,6 @@ const usernameValidator = async (value) => {
     return value
 }
 
-
 //SignUP
 router.post('/user/signup', async (req, res, next) => {
     const signupSchema = Joi.object({

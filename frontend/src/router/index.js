@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/specification',
     name: 'NotificationPage',
-    component: () => import('../views/Notification&History.vue')
+    component: () => import('../views/Specifiacation.vue')
   },
   {
     path: '/profile',
