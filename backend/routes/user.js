@@ -67,7 +67,6 @@ router.post('/user/signup', async (req, res, next) => {
     }
 })
 
-
 //LogIn
 router.post('/user/login', async (req, res, next) => {
     const loginSchema = Joi.object({

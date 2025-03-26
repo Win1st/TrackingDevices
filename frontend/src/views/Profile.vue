@@ -351,7 +351,7 @@
                           <div class="row my-2">
                             <div class="form-group col-12">
                               <label class="form-label" for="username"
-                                >Notification Message and Alert Sound</label
+                                >Notification Message</label
                               >
                               <form confirm="return checkForm();">
                                 <!-- 2 -->
@@ -369,21 +369,14 @@
                                       Select Option
                                     </option>
                                     <option
-                                      value="Notification Message and Alert Sound"
+                                      value="Turn on"
                                     >
-                                      Turn on Notification Message and Alert
-                                      Sound
-                                    </option>
-                                    <option value="Notification Message">
-                                      Turn on Notification Message
-                                    </option>
-                                    <option value="Alert Sound">
-                                      Turn on Alert Sound
+                                      Turn ON
                                     </option>
                                     <option
-                                      value="Turn off Notification and Alert"
+                                      value="Turn off"
                                     >
-                                      Turn off
+                                      Turn OFF
                                     </option>
                                   </select>
                                   <template v-if="$v.notify.$error">

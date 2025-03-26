@@ -77,7 +77,7 @@
                                   Status: Online
                                 </div>
                                 <div class="my-0 py-0 ms-2 text-dark fs-5">
-                                  Notify: {{ slaves.notify }}
+                                  Notification: {{ slaves.notify }}
                                 </div>
                                 <div class="my-0 py-0 ms-2 text-dark fs-5">
                                   Distance Alerting: {{ slaves.threshold }} m.
@@ -85,7 +85,7 @@
                                 <div
                                   class="my-0 py-0 ms-2 mb-0 pb-0 text-dark fs-5"
                                 >
-                                  Far away = {{ slaves.slavedistance }} m.
+                                  Distance = {{ slaves.slavedistance }} m.
                                 </div>
                               </div>
                               <div
@@ -213,13 +213,14 @@
                               border-radius: 25px;
                             "
                           >
+                        <div class="d-flex flex-column">
                             <router-link
                               to="/profile"
                               :class="center"
                               style="text-decoration: none"
                             >
                               <div
-                                class="ms-auto mt-3 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3 px-3 btn bg-dark border-dark text-white fw-bold fs-4 border-3"
+                                class="ms-auto mt-3 btn bg-dark border-dark py-0 text-white fw-bold fs-4 border-3 px-3 btn border-dark text-white fw-bold fs-4 border-3"
                                 :class="[
                                   center,
                                   { 'bg-secondary': hoverPayment },
@@ -233,7 +234,31 @@
                               >
                                 Settings
                               </div>
+                              
                             </router-link>
+                            <div
+                                class="mt-3 btn pe-1 bg-danger border-danger py-0 fw-bold border-3 px-3 btn border-danger text-white fs-4"
+                                :class="[
+                                  center,
+                                  { 'bg-danger': hoverPayment },
+                                ]"
+                                @mouseover="hoverPayment = true"
+                                @mouseleave="hoverPayment = false"
+                                style="
+                                  border: 3px solid white;
+                                  border-radius: 5px;
+                                  width: auto;
+                                "
+                              >
+                                ALERT <img
+                            :src="require('@/assets/image5.png')"
+                            style="
+                              max-height: 30px;
+                              width: 30px;
+                            "
+                          />
+                              </div>
+                              </div>
                           </div>
                         </div>
                       </div>

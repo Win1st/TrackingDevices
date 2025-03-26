@@ -113,43 +113,4 @@ router.post('/slaveSetting', async (req, res, next) => {
     }
 })
 
-//LogIn
-router.post('/user/login', async (req, res, next) => {
-    const loginSchema = Joi.object({
-        username: Joi.string().required(),
-        password: Joi.string().required()
-    })
-    try {
-        await loginSchema.validateAsync(req.body, { abortEarly: false })
-    } catch (err) {
-        return res.status(400).send(err)
-    }
-    const username = req.body.username
-    const password = req.body.password
-
-    const conn = await pool.getConnection()
-    await conn.beginTransaction()
-
-    try {
-        // Check if username is correct
-        const [accounts] = await conn.query(
-            'SELECT * FROM accounts WHERE username=?', 
-            [username]
-        )
-        const account = accounts[0]
-        
-        // Check if password is correct
-        if (!(await bcrypt.compare(password, account.password))) {
-            throw new Error('Incorrect username or password')
-        }
-        conn.commit()
-        res.status(200).json({'account': account})
-    } catch (error) {
-        conn.rollback()
-        res.status(403).json(error.toString())
-    } finally {
-        conn.release()
-    }
-})
-
 exports.router = router
