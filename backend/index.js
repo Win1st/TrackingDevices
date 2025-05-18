@@ -22,9 +22,11 @@ app.use(cookieSession({
 const indexRouter = require('./routes/index')
 const slaveRouter = require('./routes/slave')
 const userRouter = require('./routes/user')
+const masterRouter = require('./routes/master')
 app.use(indexRouter.router)
 app.use(slaveRouter.router)
 app.use(userRouter.router)
+app.use(masterRouter.router)
 
 app.listen(3000, () => {
   console.log(`Example app listening at http://localhost:3000`)

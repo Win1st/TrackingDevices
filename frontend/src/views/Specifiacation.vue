@@ -60,7 +60,7 @@
                                 width: auto;
                                 border-radius: 80%;
                               "
-                              @click="History(slaves) & Message(slaves)"
+                              @click="History(slaves) & Clicky(slaves)"
                             />
                             <div
                               class="d-flex flex-column"
@@ -73,9 +73,9 @@
                                 <div class="my-0 py-0 ms-2 text-dark fs-5">
                                   Device's name: {{ slaves.slavename }}
                                 </div>
-                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                <!-- <div class="my-0 py-0 ms-2 text-dark fs-5">
                                   Status: Online
-                                </div>
+                                </div> -->
                                 <div class="my-0 py-0 ms-2 text-dark fs-5">
                                   Notification: {{ slaves.notify }}
                                 </div>
@@ -85,13 +85,19 @@
                                 <div
                                   class="my-0 py-0 ms-2 mb-0 pb-0 text-dark fs-5"
                                 >
-                                  Distance = {{ slaves.slavedistance }} m.
+                                  Distance: {{ distance }} m.
                                 </div>
+                                <div class="my-0 py-0 ms-2 text-dark fs-5">
+                                  <strong>Status:</strong> {{ slaves.statusMessage }}
+                                  
+                                </div>
+
                               </div>
+                              <div class="mt-2"></div>
                               <div
                                 class="d-flex flex-row px-0 py-0 mx-0 my-0 ms-auto mt-auto"
                               >
-                                <div
+                                <!-- <div
                                   class="bg-highlight mt-auto ms-auto ms-auto mt-auto"
                                   :class="[{ 'bg-secondary': hoverPayment }]"
                                   @mouseover="hoverPayment = true"
@@ -102,7 +108,7 @@
                                     height: auto;
                                     width: 100%;
                                   "
-                                  @click="History(slaves) & Message(slaves)"
+                                  @click="History(slaves) & Clicky(slaves)"
                                 >
                                   <div
                                     class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
@@ -115,7 +121,7 @@
                                   >
                                     Message
                                   </div>
-                                </div>
+                                </div> -->
                                 <div
                                   class="bg-highlight mt-auto ms-auto ms-auto mt-auto"
                                   :class="[{ 'bg-secondary': hoverPayment }]"
@@ -127,7 +133,7 @@
                                     height: auto;
                                     width: 100%;
                                   "
-                                  @click="History(slaves) & Message(slaves)"
+                                  @click="History(slaves) & Clicky(slaves)"
                                 >
                                   <div
                                     class="px-3 py-0 btn bg-dark border-dark text-white fw-bold fs-4 border-3 ms-auto mt-auto"
@@ -272,7 +278,7 @@
                   color="secondary"
                   noshade
                 />
-              <div class="d-flex flex-row" 
+              <div v-if="selectSlave.status" class="d-flex flex-row" 
               style="width: 100%; height: auto;">
                 <div
                   class="me-auto ms-3 mt-2 bg-white border border-dark border-3"
@@ -282,18 +288,15 @@
                     class="mx-3 text-dark fw-bold fs-5 border-3"
                     style="width: auto; height: auto; border-radius: 25px"
                   >
-                    {{ message }}
+                    {{ selectSlave.status }}
                   </div>
                 </div>
-              
 
                 <div class="ms-auto me-3 text-dark fs-5"
                     :class="center">
-                  {{ formattedDate }}
+                    {{ formatTimestamp(selectSlave.timestamp) }}
                 </div>
               </div>
-             
-              
 
                 <div class="mt-auto" :class="center">
                   <div
@@ -306,7 +309,7 @@
                       style="width: auto; height: auto; border-radius: 0px"
                       :class="center"
                     >
-                      {{ selectSlave.slavedistance }} meters
+                      {{ normaldistance }} m.
                     </div>
                   </div>
                 </div>
@@ -324,13 +327,17 @@
 // @ is an alias to /src
 import axios from "axios";
 import { required } from "vuelidate/lib/validators";
-import moment from "moment";
 
 export default {
   name: "ProfilePage",
+  
   data() {
     return {
-      distance: "350",
+      normaldistance: 0,
+      distance: 0,
+      notificationMessage: "",
+      currentSlaveThreshold: 0,
+      intervalId: null,
       previousRoutes: [],
       users: [],
       password: "",
@@ -344,6 +351,7 @@ export default {
       mastername: "",
       master: "",
       notify: "",
+      timestamp:"",
       search: "",
       message: "Please select slave",
       center: {
@@ -374,14 +382,76 @@ export default {
     },
     password: {
       required: required,
-    },
+    },  
   },
 
   mounted() {
+    this.intervalId = setInterval(this.fetchDistance, 1000);
     this.getSlave();
+    this.startInterval();
+  },
+
+  beforeUnmount() {
+    this.stopInterval();
+  },
+    
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   },
 
   methods: {
+    // async fetchDistance() {
+    //   try {
+    //     const res = await fetch("http://192.168.1.176/distance");
+    //     const data = await res.json();
+    //     console.log(data);
+    //     this.distance = data.distance;
+    //   } catch (err) {
+    //     console.error("Error fetching distance:", err);
+    //   }
+    // },
+
+    startInterval() {
+      this.intervalID = setInterval(() => {
+        this.fetchDistance();
+        this.getSlave();
+        this.ReHistory();
+        //this.Message(); 
+      }, 1000);
+    },
+
+    // checkDistanceStatus() {
+    //   if (!this.selectSlave) return;
+
+    //   const threshold = parseFloat(this.selectSlave.threshold || 0);
+
+    //   if (this.distance > threshold) {
+    //     this.notificationMessage = "🚨 Your device is now out of range!";
+    //   } else {
+    //     this.notificationMessage = "✅ Your device is in range.";
+    //   }
+    // },
+
+    async fetchDistance() {
+      axios
+        .get("http://localhost:3000/pulldistance")
+        .then((response) => {
+          this.distance = response.data.distance;
+
+          // เรียกฟังก์ชันเช็กระยะทันทีหลังได้ข้อมูล
+          // this.checkDistanceStatus();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    formatTimestamp(timestamp) {
+    if(!timestamp) return " ";
+        const date = new Date(timestamp);
+        return date.toLocaleString('th-TH');
+  },
+
     getSlave() {
       axios
         .get("http://localhost:3000/userSlave", {
@@ -390,29 +460,51 @@ export default {
           },
         })
         .then((response) => {
-          this.slavename = response.data;
+          const slaves = response.data;
+
+          // คำนวณข้อความสถานะสำหรับแต่ละ slave
+          slaves.forEach((slave) => {
+            const threshold = parseFloat(slave.threshold);
+            const currentDistance = parseFloat(this.distance);
+
+            if (!isNaN(threshold) && !isNaN(currentDistance)) {
+              slave.statusMessage =
+                currentDistance < threshold
+                  ? "✅ Your device is in range."
+                  : "🚨 Your device is now out of range!";
+            } else {
+              slave.statusMessage = "❓ Unknown status";
+            }
+          });
+
+          this.slavename = slaves;
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    Message(slave) {
+    Clicky(slave) {
       this.selectSlave = slave;
-      console.log("ab");
-      const data = {
-        slavename: slave.slavename,
-      };
-      axios
-        .post("http://localhost:3000/slaveDistance", data)
-        .then((res) => {
-          this.message = res.data;
-          alert(res.data);
-        })
-        .catch(() => {
-          alert("ERROR");
-        });
     },
+
+    // Message() {
+    //   if (this.selectSlave && this.selectSlave.slavename) {
+    //   const data = {
+    //     slavename: this.selectSlave.slavename,
+    //   };
+    //   console.log(data)
+    //   axios
+    //     .post("http://localhost:3000/pulldistance", data)
+    //     .then((res) => {
+    //       this.message = res.data.slave.status;
+
+    //     })
+    //     .catch(() => {
+    //       alert("ERROR");
+    //     });
+    //   }
+    // },
 
     History(slave) {
       this.selectSlave = slave;
@@ -423,11 +515,43 @@ export default {
       axios
         .post("http://localhost:3000/slaveDistance", data)
         .then((res) => {
-          this.message = res.data;
+          this.message = res.data.slave.status;
         })
+      
+      axios
+        .get("http://localhost:3000/pulldistance")
+        .then((response) => {
+          this.normaldistance = response.data.distance;
+        })
+
         .catch(() => {
           alert("ERROR");
         });
+    },
+
+    ReHistory() {
+      if(this.selectSlave){
+          const data = {
+          slavename:  this.selectSlave.slavename,
+        };
+        axios
+          .post("http://localhost:3000/slaveDistance", data)
+          .then((res) => {
+            this.message = res.data.slave.status;
+            this.selectSlave = res.data.slave;
+            console.log(res)
+          })
+        
+        axios
+          .get("http://localhost:3000/pulldistance")
+          .then((response) => {
+            this.normaldistance = response.data.distance;
+          })
+
+          .catch(() => {
+            alert("ERROR");
+          });
+      }
     },
 
     Adding() {
@@ -486,15 +610,32 @@ export default {
   },
 
   computed: {
-    formattedDate() {
-      return moment(this.date).format("YYYY-MM-DD HH:mm:ss");
-    },
+    
   },
 
   watch: {
+    message(newValue, oldValue) {
+        if(newValue != oldValue){
+          alert(newValue)} 
+    },
+    
+    
     $route(to, from) {
       this.previousRoutes.push(from); // เมื่อมีการเปลี่ยนเส้นทางใหม่ ให้เก็บเส้นทางก่อนหน้าลงในอาร์เรย์
     },
   },
 };
+
+document
+  .getElementById("alert-btn")
+  .addEventListener("click", async () => {
+    try {
+      let res = await fetch("/alert", { method: "POST" });
+      if (!res.ok) throw new Error("Network error");
+      console.log("Alert triggered");
+    } catch(e) {
+      console.error(e);
+    }
+  });
+  
 </script>
